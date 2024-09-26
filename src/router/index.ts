@@ -20,7 +20,17 @@ const router = createRouter({
     {
       path: '/usuari',
       name: 'perfil-index',
-      component: () => import('@/views/PerfilLlistaView.vue')
+      component: () => import('@/views/PerfilLlistaView.vue'),
+      beforeEnter: () => {
+        // const token = sessionStorage.getItem('access_token')
+        const token = 'adasdasdad.asdasdasd'
+
+        if (!token) {
+          return {
+            name: 'home'
+          }
+        }
+      }
     },
     {
       path: '/usuari/:id',
