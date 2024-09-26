@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue'
+
+const usuariId = ref<number>(Math.ceil(Math.random() * 100))
 </script>
 
 <template>
@@ -13,6 +16,8 @@ import HelloWorld from './components/HelloWorld.vue'
       <nav>
         <RouterLink :to="{ name: 'home' }">Home</RouterLink>
         <RouterLink :to="{ name: 'about' }">Sobre nosaltres</RouterLink>
+        <RouterLink :to="{ name: 'perfil-index' }">Llista d'usuaris</RouterLink>
+        <RouterLink :to="{ name: 'perfil', params: { id: usuariId } }">Perfil aleatori</RouterLink>
       </nav>
     </div>
   </header>
