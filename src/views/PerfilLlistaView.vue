@@ -3,21 +3,21 @@ import { ref } from 'vue'
 
 const usuaris = ref<any[]>([])
 
-const carregarUsuaris = () => {
-  fetch('https://jsonplaceholder.typicode.com/users')
-    .then((response) => {
-      return response.json()
-    })
-    .then((response) => {
-      usuaris.value = response
-    })
-    .catch((error) => {
-      console.log({ error })
-    })
-
-  // console.log(response)
-
-  // usuaris.value = resultat
+const carregarUsuaris = async () => {
+  // fetch('https://jsonplaceholder.typicode.com/users')
+  //   .then((response) => response.json())
+  //   .then((response) => {
+  //     usuaris.value = response
+  //     console.log(usuaris.value)
+  //   })
+  //   .catch((error) => console.log({ error }))
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/users')
+    usuaris.value = await response.json()
+    // console.log(usuaris.value)
+  } catch (error) {
+    console.log({ error })
+  }
 }
 
 carregarUsuaris()
