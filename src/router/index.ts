@@ -12,9 +12,6 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('@/views/AboutView.vue')
     },
     {
@@ -42,14 +39,29 @@ const router = createRouter({
       meta: {
         requireAuth: true
       }
+    },
+    {
+      path: '/account',
+      name: 'account',
+      children: [
+        {
+          path: 'compres',
+          name: 'account-compres',
+          component: () => import('@/views/Account/AccountCompres.vue')
+        }
+      ],
+      component: () => import('@/views/Account/Account.vue'),
+      meta: {
+        requireAuth: true
+      }
     }
   ]
 })
 
 router.beforeEach((to: any, from) => {
   if (to.meta.requireAuth) {
-    const token = sessionStorage.getItem('access_token')
-    // const token = 'adasdasdad.asdasdasd'
+    // const token = sessionStorage.getItem('access_token')
+    const token = 'adasdasdad.asdasdasd'
 
     if (!token) {
       return {

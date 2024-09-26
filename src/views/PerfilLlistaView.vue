@@ -6,6 +6,7 @@ import httpClient from '@/plugins/httpClient'
 const { query } = useRoute()
 console.log(query)
 
+const carregat = ref(false)
 const cerca = ref(query.name?.toLowerCase())
 const usuaris = ref<any[]>([])
 const usuarisFiltrats = computed(() => {
@@ -53,6 +54,7 @@ const carregarUsuarisAxios = async () => {
   const { data } = await httpClient.get('/users')
   usuaris.value = data
 
+  carregat.value = true
   // console.log(response)
 }
 
@@ -83,6 +85,7 @@ onMounted(() => {
         </div>
       </li>
     </ul>
-    <div v-else>No hi ha cap usuari</div>
+    <div v-else-if="carregat">No hi ha cap usuari</div>
+    <div v-else>Carregant, spinner, etc</div>
   </div>
 </template>
