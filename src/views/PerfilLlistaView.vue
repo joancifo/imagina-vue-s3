@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+
+const { query } = useRoute()
+console.log(query)
 
 const usuaris = ref<any[]>([])
 
@@ -14,6 +18,7 @@ const carregarUsuaris = async () => {
   try {
     const response = await fetch('https://jsonplaceholder.typicode.com/users')
     usuaris.value = await response.json()
+
     // console.log(usuaris.value)
   } catch (error) {
     console.log({ error })
@@ -26,7 +31,21 @@ carregarUsuaris()
   <div>
     <h1>Llista d'usuaris</h1>
     <ul v-if="usuaris.length">
-      <li v-for="usuari in usuaris" :key="usuari.id">{{ usuari.name }} {{ usuari.phone }}</li>
+      <li v-for="usuari in usuaris" :key="usuari.id">
+        <div>
+          <h5>
+            {{ usuari.name }}
+            <RouterLink :to="{ name: 'perfil', params: { id: usuari.id } }">
+              Anar al perfil
+            </RouterLink>
+          </h5>
+          <div>
+            <ul>
+              <li v-for="(valor, clau) in usuari" :key="clau">{{ clau }}: {{ valor }}</li>
+            </ul>
+          </div>
+        </div>
+      </li>
     </ul>
     <div v-else>No hi ha cap usuari</div>
   </div>
