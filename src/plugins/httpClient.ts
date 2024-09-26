@@ -1,10 +1,12 @@
-import axios from 'axios'
+import axios, { AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios'
+
+const baseURL = 'https://jsonplaceholder.typicode.com'
 
 const instance = axios.create({
-  baseURL: 'https://jsonplaceholder.typicode.com'
+  baseURL
 })
 
-instance.interceptors.request.use((config): any => {
+instance.interceptors.request.use((config): InternalAxiosRequestConfig => {
   const token = sessionStorage.getItem('access_token')
 
   if (token) {
@@ -13,5 +15,24 @@ instance.interceptors.request.use((config): any => {
 
   return config
 })
+
+instance.interceptors.response.use(
+  (response): AxiosResponse => {
+    // Puc actuar sobre la resposta
+
+    return response
+  },
+  (error): AxiosError => {
+    if (error.status === 404) {
+      // alert('Recurs no trobat')
+    }
+
+    if (error.status === 401) {
+      // token caducat! torna a generar token
+    }
+
+    return error
+  }
+)
 
 export default instance
