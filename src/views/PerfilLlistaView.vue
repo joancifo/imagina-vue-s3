@@ -1,11 +1,26 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 const { query } = useRoute()
 console.log(query)
 
+const cerca = ref(query.name?.toLowerCase())
 const usuaris = ref<any[]>([])
+const usuarisFiltrats = computed(() => {
+  let resultat = usuaris.value
+
+  if (cerca.value) {
+    resultat = resultat.filter((usuari) => {
+      const usuariName = usuari.name.toLowerCase()
+      const queryName = cerca.value.toLowerCase()
+
+      return usuariName.includes(queryName)
+    })
+  }
+
+  return resultat
+})
 
 const carregarUsuaris = async () => {
   // fetch('https://jsonplaceholder.typicode.com/users')
@@ -18,20 +33,24 @@ const carregarUsuaris = async () => {
   try {
     const response = await fetch('https://jsonplaceholder.typicode.com/users')
     usuaris.value = await response.json()
-
     // console.log(usuaris.value)
   } catch (error) {
     console.log({ error })
   }
 }
 
-carregarUsuaris()
+onMounted(() => {
+  carregarUsuaris()
+})
 </script>
 <template>
   <div>
     <h1>Llista d'usuaris</h1>
-    <ul v-if="usuaris.length">
-      <li v-for="usuari in usuaris" :key="usuari.id">
+    <div>
+      <input v-model="cerca" type="text" placeholder="Cerca per nom" />
+    </div>
+    <ul v-if="usuarisFiltrats.length">
+      <li v-for="usuari in usuarisFiltrats" :key="usuari.id">
         <div>
           <h5>
             {{ usuari.name }}
