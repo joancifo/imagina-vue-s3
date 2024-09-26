@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import httpClient from '@/plugins/httpClient'
 
 const { query } = useRoute()
 console.log(query)
@@ -32,9 +33,15 @@ const usuarisFiltrats = computed(() => {
 //     .catch((error) => console.log({ error }))
 // }
 
-const carregarUsuaris = async () => {
+const carregarUsuarisFetchAwait = async () => {
   try {
-    const response = await fetch('https://jsonplaceholder.typicode.com/users')
+    const response = await fetch('https://jsonplaceholder.typicode.com/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer TOKEN'
+      }
+    })
     usuaris.value = await response.json()
     // console.log(usuaris.value)
   } catch (error) {
@@ -42,8 +49,15 @@ const carregarUsuaris = async () => {
   }
 }
 
+const carregarUsuarisAxios = async () => {
+  const { data } = await httpClient.get('/users')
+  usuaris.value = data
+
+  // console.log(response)
+}
+
 onMounted(() => {
-  carregarUsuaris()
+  carregarUsuarisAxios()
 })
 </script>
 <template>
