@@ -73,7 +73,7 @@ onMounted(() => {
         <div>
           <h5>
             {{ usuari.name }}
-            <RouterLink :to="{ name: 'perfil', params: { id: usuari.id } }">
+            <RouterLink :to="{ name: 'usuari-detall', params: { id: usuari.id } }">
               Anar al perfil
             </RouterLink>
           </h5>

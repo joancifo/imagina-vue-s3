@@ -11,8 +11,10 @@ const usuariId = ref<number>(Math.ceil(Math.random() * 100))
       <nav>
         <RouterLink :to="{ name: 'home' }">Home</RouterLink>
         <RouterLink :to="{ name: 'about' }">Sobre nosaltres</RouterLink>
-        <RouterLink :to="{ name: 'perfil-index' }">Llista d'usuaris</RouterLink>
-        <RouterLink :to="{ name: 'perfil', params: { id: usuariId } }">Perfil aleatori</RouterLink>
+        <RouterLink :to="{ name: 'usuari-llista' }">Llista d'usuaris</RouterLink>
+        <RouterLink :to="{ name: 'usuari-detall', params: { id: usuariId } }"
+          >Perfil aleatori</RouterLink
+        >
         <RouterLink :to="{ name: 'account' }">El meu compte</RouterLink>
       </nav>
     </div>

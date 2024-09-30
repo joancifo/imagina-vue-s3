@@ -8,19 +8,6 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('@/views/AboutView.vue')
-    },
-    {
-      path: '/usuari',
-      name: 'perfil-index',
-      component: () => import('@/views/PerfilLlistaView.vue'),
-      meta: {
-        requireAuth: true
-      }
       // beforeEnter: () => {
       //   // const token = sessionStorage.getItem('access_token')
       //   const token = 'adasdasdad.asdasdasd'
@@ -33,13 +20,38 @@ const router = createRouter({
       // }
     },
     {
-      path: '/usuari/:id',
-      name: 'perfil',
-      component: () => import('@/views/PerfilView.vue'),
+      path: '/about',
+      name: 'about',
+      component: () => import('@/views/AboutView.vue')
+    },
+    {
+      path: '/usuari',
+      name: 'usuari',
+      children: [
+        {
+          path: '/',
+          name: 'usuari-llista',
+          component: () => import('@/views/Usuari/UsuariLlistaView.vue')
+        },
+        {
+          path: '/:id',
+          name: 'usuari-detall',
+          component: () => import('@/views/Usuari/UsuariDetallView.vue')
+        }
+      ],
+      component: () => import('@/views/Usuari/UsuariView.vue'),
       meta: {
         requireAuth: true
       }
     },
+    // {
+    //   path: '/usuari/:id',
+    //   name: 'perfil',
+    //   component: () => import('@/views/PerfilView.vue'),
+    //   meta: {
+    //     requireAuth: true
+    //   }
+    // },
     {
       path: '/account',
       name: 'account',
