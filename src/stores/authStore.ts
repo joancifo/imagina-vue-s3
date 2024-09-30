@@ -1,6 +1,6 @@
+import httpClient from '@/plugins/httpClient'
 import { defineStore } from 'pinia'
 import { ref, type Ref } from 'vue'
-import httpClient from '@/plugins/httpClient'
 
 export const useAuthStore = defineStore(
   'auth',
@@ -20,14 +20,19 @@ export const useAuthStore = defineStore(
       }
     }
 
+    const logout = () => {
+      authToken.value = ''
+    }
+
     return {
       authToken,
-      login
+      login,
+      logout
     }
   },
   {
     persist: {
-      storage: sessionStorage
+      storage: localStorage
     }
   }
 )

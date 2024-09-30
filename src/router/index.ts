@@ -12,21 +12,20 @@ const router = createRouter({
       meta: {
         title: 'Pàgina principal'
       }
-      // beforeEnter: () => {
-      //   // const token = sessionStorage.getItem('access_token')
-      //   const token = 'adasdasdad.asdasdasd'
-
-      //   if (!token) {
-      //     return {
-      //       name: 'home'
-      //     }
-      //   }
-      // }
     },
     {
       path: '/iniciar-sessio',
       name: 'iniciar-sessio',
-      component: () => import('@/views/LoginView.vue')
+      component: () => import('@/views/LoginView.vue'),
+      beforeEnter: () => {
+        const authStore = useAuthStore()
+
+        if (authStore.authToken) {
+          return {
+            name: 'home'
+          }
+        }
+      }
     },
     {
       path: '/about',

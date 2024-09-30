@@ -3,8 +3,10 @@ import { onMounted, ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useTitle } from './hooks/useTitle'
 import { useUsuarisStore } from './stores/usuarisStore'
+import { useAuthStore } from './stores/authStore'
 
 const usuarisStore = useUsuarisStore()
+const authStore = useAuthStore()
 
 const usuariId = ref<number>(Math.ceil(Math.random() * 100))
 
@@ -31,6 +33,8 @@ onMounted(async () => {
           >Perfil aleatori</RouterLink
         >
         <RouterLink :to="{ name: 'account' }">El meu compte</RouterLink>
+        <button v-if="authStore.authToken" @click="authStore.logout">Tancar sessió</button>
+        <RouterLink v-else :to="{ name: 'iniciar-sessio' }">Iniciar sessió</RouterLink>
       </nav>
     </div>
   </header>
