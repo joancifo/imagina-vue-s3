@@ -29,12 +29,12 @@ const router = createRouter({
       name: 'usuari',
       children: [
         {
-          path: '/',
+          path: '',
           name: 'usuari-llista',
           component: () => import('@/views/Usuari/UsuariLlistaView.vue')
         },
         {
-          path: '/:id',
+          path: ':id',
           name: 'usuari-detall',
           component: () => import('@/views/Usuari/UsuariDetallView.vue')
         }
