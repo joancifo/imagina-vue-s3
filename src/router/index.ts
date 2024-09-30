@@ -1,3 +1,4 @@
+import { useAuthStore } from '@/stores/authStore'
 import HomeView from '@/views/HomeView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -73,15 +74,12 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to: any, from) => {
-  if (to.meta.requireAuth) {
-    // const token = sessionStorage.getItem('access_token')
-    const token = 'adasdasdad.asdasdasd'
+router.beforeEach((to: any) => {
+  const authStore = useAuthStore()
 
-    if (!token) {
-      return {
-        name: 'home'
-      }
+  if (to.meta.requireAuth && !authStore.authToken) {
+    return {
+      name: 'iniciar-sessio'
     }
   }
 })
