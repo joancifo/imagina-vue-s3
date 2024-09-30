@@ -19,7 +19,8 @@ watch(route, () => {
     title += ` - ${route.meta.title}`
   }
 
-  document.querySelector('title').innerText = title
+  /** @ts-ignore */
+  document.title = title
 })
 </script>
 
