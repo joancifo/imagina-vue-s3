@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useTitle } from './hooks/useTitle'
 import { useUsuarisStore } from './stores/usuarisStore'
@@ -9,6 +9,11 @@ const usuarisStore = useUsuarisStore()
 const usuariId = ref<number>(Math.ceil(Math.random() * 100))
 
 useTitle()
+
+onMounted(async () => {
+  await usuarisStore.carregarUsuarisAxios()
+  // carregat.value = true
+})
 </script>
 
 <template>

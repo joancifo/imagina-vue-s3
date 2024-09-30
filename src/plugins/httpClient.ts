@@ -22,7 +22,7 @@ instance.interceptors.response.use(
 
     return response
   },
-  (error): AxiosError => {
+  (error): Promise<AxiosError> => {
     if (error.status === 404) {
       // alert('Recurs no trobat')
     }
@@ -31,7 +31,7 @@ instance.interceptors.response.use(
       // token caducat! torna a generar token
     }
 
-    return error
+    return Promise.reject(error)
   }
 )
 

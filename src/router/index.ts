@@ -23,6 +23,11 @@ const router = createRouter({
       // }
     },
     {
+      path: '/iniciar-sessio',
+      name: 'iniciar-sessio',
+      component: () => import('@/views/LoginView.vue')
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('@/views/AboutView.vue'),

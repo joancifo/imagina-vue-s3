@@ -25,11 +25,6 @@ const usuarisFiltrats = computed(() => {
 
   return resultat
 })
-
-onMounted(async () => {
-  await usuarisStore.carregarUsuarisAxios()
-  carregat.value = true
-})
 </script>
 <template>
   <div>

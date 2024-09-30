@@ -1,19 +1,21 @@
 import httpClient from '@/plugins/httpClient'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 export const useUsuarisStore = defineStore('usuaris', () => {
   const usuaris = ref([])
 
-  // const carregarUsuarisThen = () => {
-  //   fetch('https://jsonplaceholder.typicode.com/users')
-  //     .then((response) => response.json())
-  //     .then((response) => {
-  //       usuaris.value = response
-  //       console.log(usuaris.value)
-  //     })
-  //     .catch((error) => console.log({ error }))
-  // }
+  const nomsDeUsuaris = computed(() => usuaris.value.map((usuari) => usuari.name))
+
+  const carregarUsuarisThen = () => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((response) => response.json())
+      .then((response) => {
+        usuaris.value = response
+        console.log(usuaris.value)
+      })
+      .catch((error) => console.log({ error }))
+  }
 
   const carregarUsuarisFetchAwait = async () => {
     try {
@@ -37,7 +39,9 @@ export const useUsuarisStore = defineStore('usuaris', () => {
 
   return {
     usuaris,
+    nomsDeUsuaris,
     carregarUsuarisAxios,
-    carregarUsuarisFetchAwait
+    carregarUsuarisFetchAwait,
+    carregarUsuarisThen
   }
 })
