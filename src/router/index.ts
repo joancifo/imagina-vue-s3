@@ -75,6 +75,17 @@ const router = createRouter({
 
 router.beforeEach((to: any) => {
   const authStore = useAuthStore()
+  // const localesPermesos = ['es', 'ca']
+
+  // const currentLocale = to.params.locale || sessionStorage.getItem('locale')
+
+  // if (currentLocale) {
+  //   if (!localesPermesos.includes(currentLocale)) {
+  //     return {
+  //       name: 'home'
+  //     }
+  //   }
+  // }
 
   if (to.meta.requireAuth && !authStore.teSessioIniciada) {
     return {

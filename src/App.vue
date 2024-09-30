@@ -14,6 +14,8 @@ useTitle()
 
 onMounted(async () => {
   await usuarisStore.carregarUsuarisAxios()
+
+  // sessionStorage.setItem('locale', navigator.languages[1])
   // carregat.value = true
 })
 </script>
