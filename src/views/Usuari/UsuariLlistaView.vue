@@ -1,17 +1,18 @@
 <script setup lang="ts">
+import UsuariLlistaItem from '@/components/Usuari/UsuariLlistaItem.vue'
+import { useUsuarisStore } from '@/stores/usuarisStore'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import httpClient from '@/plugins/httpClient'
-import UsuariLlistaItem from '@/components/Usuari/UsuariLlistaItem.vue'
+
+const usuarisStore = useUsuarisStore()
 
 const { query } = useRoute()
-console.log(query)
 
 const carregat = ref(false)
 const cerca = ref(query.name?.toLowerCase())
-const usuaris = ref<any[]>([])
+
 const usuarisFiltrats = computed(() => {
-  let resultat = usuaris.value
+  let resultat = usuarisStore.usuaris
 
   if (cerca.value) {
     resultat = resultat.filter((usuari) => {
@@ -25,42 +26,9 @@ const usuarisFiltrats = computed(() => {
   return resultat
 })
 
-// const carregarUsuarisThen = () => {
-//   fetch('https://jsonplaceholder.typicode.com/users')
-//     .then((response) => response.json())
-//     .then((response) => {
-//       usuaris.value = response
-//       console.log(usuaris.value)
-//     })
-//     .catch((error) => console.log({ error }))
-// }
-
-const carregarUsuarisFetchAwait = async () => {
-  try {
-    const response = await fetch('https://jsonplaceholder.typicode.com/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer TOKEN'
-      }
-    })
-    usuaris.value = await response.json()
-    // console.log(usuaris.value)
-  } catch (error) {
-    console.log({ error })
-  }
-}
-
-const carregarUsuarisAxios = async () => {
-  const { data } = await httpClient.get('/users')
-  usuaris.value = data
-
+onMounted(async () => {
+  await usuarisStore.carregarUsuarisAxios()
   carregat.value = true
-  // console.log(response)
-}
-
-onMounted(() => {
-  carregarUsuarisAxios()
 })
 </script>
 <template>

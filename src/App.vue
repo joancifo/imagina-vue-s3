@@ -2,6 +2,9 @@
 import { ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useTitle } from './hooks/useTitle'
+import { useUsuarisStore } from './stores/usuarisStore'
+
+const usuarisStore = useUsuarisStore()
 
 const usuariId = ref<number>(Math.ceil(Math.random() * 100))
 
@@ -9,6 +12,10 @@ useTitle()
 </script>
 
 <template>
+  <div v-if="usuarisStore.usuaris.length">
+    Ja tens {{ usuarisStore.usuaris.length }} usuaris a l'aplicació!
+  </div>
+  <div>Usuaris no carregats</div>
   <header>
     <div class="wrapper">
       <nav>
