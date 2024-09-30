@@ -1,8 +1,26 @@
 <script setup lang="ts">
 import { RouterLink, RouterView, useRoute } from 'vue-router'
-import { ref } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 
 const usuariId = ref<number>(Math.ceil(Math.random() * 100))
+
+const route = useRoute()
+
+onMounted(() => {
+  setTimeout(() => {
+    console.log(route.path)
+  }, 500)
+})
+
+watch(route, () => {
+  let title = 'CRM'
+
+  if (route.meta.title) {
+    title += ` - ${route.meta.title}`
+  }
+
+  document.querySelector('title').innerText = title
+})
 </script>
 
 <template>

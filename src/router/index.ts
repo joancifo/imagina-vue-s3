@@ -7,7 +7,10 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta: {
+        title: 'Pàgina principal'
+      }
       // beforeEnter: () => {
       //   // const token = sessionStorage.getItem('access_token')
       //   const token = 'adasdasdad.asdasdasd'
@@ -22,7 +25,10 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      component: () => import('@/views/AboutView.vue')
+      component: () => import('@/views/AboutView.vue'),
+      meta: {
+        title: 'Sobre nosaltres'
+      }
     },
     {
       path: '/usuari',
