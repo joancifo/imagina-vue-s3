@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import httpClient from '@/plugins/httpClient'
+import UsuariLlistaItem from '@/components/Usuari/UsuariLlistaItem.vue'
 
 const { query } = useRoute()
 console.log(query)
@@ -69,21 +70,13 @@ onMounted(() => {
       <input v-model="cerca" type="text" placeholder="Cerca per nom" />
     </div>
     <ul v-if="usuarisFiltrats.length">
-      <li v-for="usuari in usuarisFiltrats" :key="usuari.id">
-        <div>
-          <h5>
-            {{ usuari.name }}
-            <RouterLink :to="{ name: 'usuari-detall', params: { id: usuari.id } }">
-              Anar al perfil
-            </RouterLink>
-          </h5>
-          <div>
-            <ul>
-              <li v-for="(valor, clau) in usuari" :key="clau">{{ clau }}: {{ valor }}</li>
-            </ul>
-          </div>
-        </div>
-      </li>
+      <UsuariLlistaItem
+        v-for="(usuari, index) in usuarisFiltrats"
+        :key="usuari.id"
+        :item="usuari"
+        :index="index + 1"
+        :usuaris="usuarisFiltrats"
+      />
     </ul>
     <div v-else-if="carregat">No hi ha cap usuari</div>
     <div v-else>Carregant, spinner, etc</div>
