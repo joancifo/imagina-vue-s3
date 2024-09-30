@@ -19,7 +19,6 @@ watch(route, () => {
     title += ` - ${route.meta.title}`
   }
 
-  /** @ts-ignore */
   document.title = title
 })
 </script>
