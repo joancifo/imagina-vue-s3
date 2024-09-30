@@ -23,6 +23,7 @@ onMounted(async () => {
     Ja tens {{ usuarisStore.usuaris.length }} usuaris a l'aplicació!
   </div>
   <div>Usuaris no carregats</div>
+  <div v-if="authStore.teSessioIniciada">Hola, {{ authStore.usuari.nom }}</div>
   <header>
     <div class="wrapper">
       <nav>
@@ -33,7 +34,7 @@ onMounted(async () => {
           >Perfil aleatori</RouterLink
         >
         <RouterLink :to="{ name: 'account' }">El meu compte</RouterLink>
-        <button v-if="authStore.authToken" @click="authStore.logout">Tancar sessió</button>
+        <button v-if="authStore.teSessioIniciada" @click="authStore.logout">Tancar sessió</button>
         <RouterLink v-else :to="{ name: 'iniciar-sessio' }">Iniciar sessió</RouterLink>
       </nav>
     </div>

@@ -1,31 +1,41 @@
 import httpClient from '@/plugins/httpClient'
 import { defineStore } from 'pinia'
-import { ref, type Ref } from 'vue'
+import { computed, ref, type ComputedRef, type Ref } from 'vue'
 
 export const useAuthStore = defineStore(
   'auth',
   () => {
-    const authToken: Ref<string> = ref<string>('')
+    const usuari: any = ref<any>({
+      authToken: '',
+      nom: ''
+    })
 
-    const login = async (usuari: string, contrasenya: string) => {
+    const teSessioIniciada: ComputedRef<boolean> = computed<boolean>(
+      () => usuari.value.authToken !== ''
+    )
+
+    const login = async (username: string, contrasenya: string) => {
       try {
         const { data }: any = await httpClient.post('/users', {
-          usuari,
+          username,
           contrasenya
         })
         //   authToken.value = response.auth_token
-        authToken.value = data.usuari // fake token
+        usuari.value.authToken = data.username // fake token
+        usuari.value.nom = data.username // fake username
       } catch (error) {
         console.log({ error }, 'Error amb login!')
       }
     }
 
     const logout = () => {
-      authToken.value = ''
+      usuari.value.authToken = ''
+      usuari.value.nom = ''
     }
 
     return {
-      authToken,
+      usuari,
+      teSessioIniciada,
       login,
       logout
     }

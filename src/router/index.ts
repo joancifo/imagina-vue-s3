@@ -20,7 +20,7 @@ const router = createRouter({
       beforeEnter: () => {
         const authStore = useAuthStore()
 
-        if (authStore.authToken) {
+        if (authStore.teSessioIniciada) {
           return {
             name: 'home'
           }
@@ -76,7 +76,7 @@ const router = createRouter({
 router.beforeEach((to: any) => {
   const authStore = useAuthStore()
 
-  if (to.meta.requireAuth && !authStore.authToken) {
+  if (to.meta.requireAuth && !authStore.teSessioIniciada) {
     return {
       name: 'iniciar-sessio'
     }
