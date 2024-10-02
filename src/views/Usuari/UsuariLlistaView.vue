@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import UsuariLlistaItem from '@/components/Usuari/UsuariLlistaItem.vue'
 import { useUsuarisStore } from '@/stores/usuarisStore'
-import { computed, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const usuarisStore = useUsuarisStore()
