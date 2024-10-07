@@ -6,16 +6,16 @@ import { useRoute } from 'vue-router'
 
 const usuarisStore = useUsuarisStore()
 
-const { query } = useRoute()
+const { query }: any = useRoute()
 
 const carregat = ref(false)
 const cerca = ref(query.name?.toLowerCase())
 
-const usuarisFiltrats = computed(() => {
+const usuarisFiltrats: any = computed(() => {
   let resultat = usuarisStore.usuaris
 
   if (cerca.value) {
-    resultat = resultat.filter((usuari) => {
+    resultat = resultat.filter((usuari: any) => {
       const usuariName = usuari.name.toLowerCase()
       const queryName = cerca.value.toLowerCase()
 
