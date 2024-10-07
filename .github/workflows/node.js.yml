@@ -2,7 +2,7 @@ name: Desplegar Projecte
 
 on:
   push:
-    branches: 
+    branches:
       - main
 
 jobs:
@@ -12,10 +12,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.2.0
 
-      - name: Configurar Node  
+      - name: Configurar Node
         uses: actions/setup-node@v4.0.4
         with:
-            node-version: '20'
+          node-version: '20'
 
       - name: Instal·lar dependències
         run: npm install
+
+      - name: Build projecte
+        run: npm run build
