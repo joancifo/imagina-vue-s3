@@ -1,11 +1,12 @@
 import httpClient from '@/plugins/httpClient'
+import type Usuari from '@/types/Usuari'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
 export const useUsuarisStore = defineStore('usuaris', () => {
   const usuaris = ref([])
 
-  const nomsDeUsuaris = computed(() => usuaris.value.map((usuari) => usuari.name))
+  const nomsDeUsuaris = computed(() => usuaris.value.map((usuari: Usuari) => usuari.name))
 
   const carregarUsuarisThen = () => {
     fetch('https://jsonplaceholder.typicode.com/users')

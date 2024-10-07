@@ -1,21 +1,22 @@
 <script setup lang="ts">
 import UsuariLlistaItem from '@/components/Usuari/UsuariLlistaItem.vue'
 import { useUsuarisStore } from '@/stores/usuarisStore'
-import { computed, ref } from 'vue'
+import type Usuari from '@/types/Usuari'
+import { computed, ref, type ComputedRef } from 'vue'
 import { useRoute } from 'vue-router'
 
 const usuarisStore = useUsuarisStore()
 
-const { query } = useRoute()
+const { query }: any = useRoute()
 
 const carregat = ref(false)
 const cerca = ref(query.name?.toLowerCase())
 
-const usuarisFiltrats = computed(() => {
+const usuarisFiltrats: ComputedRef<Usuari[]> = computed(() => {
   let resultat = usuarisStore.usuaris
 
   if (cerca.value) {
-    resultat = resultat.filter((usuari) => {
+    resultat = resultat.filter((usuari: Usuari) => {
       const usuariName = usuari.name.toLowerCase()
       const queryName = cerca.value.toLowerCase()
 
