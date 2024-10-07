@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import HelloWorld from '@/components/HelloWorld.vue'
-import TheWelcome from '../components/TheWelcome.vue'
 </script>
 
 <template>
   <main>
     <!-- <TheWelcome /> -->
-    <HelloWorld msg="Hello Vitest" />
+    <HelloWorld msg="Hola des de GitHub actions!" />
     <div>Canvi 1</div>
   </main>
 </template>
