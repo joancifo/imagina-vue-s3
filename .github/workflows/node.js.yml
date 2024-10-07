@@ -32,4 +32,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           source: './dist/*'
-          target: /var/www/imagina.fona.dev/web
+          target: /var/www/imagina.fona.dev/web/.
